@@ -1,15 +1,23 @@
 <template>
-  <div class="book-container">
+  <div class="book-container" v-on:click="store.addItemAction(book)">
     <div class="book">
       <img :src="book.cover" alt="">
     </div>
     <h2>{{ book.title }}</h2>
+    <p>{{ book.price }}</p>
   </div>
 </template>
 
 <script>
+import store from '../stores/basketStore'
+
 export default {
   name: 'Book',
+  data: () => {
+    return {
+      store
+    }
+  },
   props: {
     book: Object
   }
@@ -30,14 +38,9 @@ export default {
 
   .book-container {
     display: inline-block;
-    width: 50%;
     text-align: center;
     padding: 1em;
     box-sizing: border-box;
-
-    @media screen and (min-width: 768px){
-      width: 25%;
-    }
   }
 
   .book {
@@ -50,7 +53,7 @@ export default {
     position: relative;
     background: $book-color-bg;
     z-index: 1;
-    box-shadow: 0 2px 4px 0 rgba(#000, .1), 0 9px 20px 0 rgba(#000, .25);
+    box-shadow: 0 2px 4px 0 rgba(#000, .1), 0 9px 20px 0 rgba(#000, .5);
     overflow: hidden;
     transition: box-shadow .3s linear;
   }
