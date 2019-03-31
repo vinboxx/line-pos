@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <div class="main-panel">
-      <BookList class="panel left-panel" />
+      <div class="panel left-panel">
+        <BookList />
+        <div class="receipt-panel" v-bind:class="{ active: store.state.step === 2 }">
+          <Receipt :showHeader="true" :showPayment="true" />
+        </div>
+      </div>
 
       <div class="panel right-panel">
         <div class="inner">
@@ -30,6 +35,7 @@
 <script>
 import store from './stores/basketStore'
 import BookList from './components/BookList.vue'
+import Receipt from './components/Receipt.vue'
 import Basket from './components/Basket.vue'
 import Payment from './components/Payment.vue'
 
@@ -38,7 +44,8 @@ export default {
   components: {
     BookList,
     Basket,
-    Payment
+    Payment,
+    Receipt
   },
   data () {
     return {
@@ -116,10 +123,47 @@ export default {
 
   .left-panel {
     background-color: #f2ede6;
+    > div {
+      display: flex;
+      flex-wrap: wrap;
+      height: 100%;
+      overflow-y: scroll;
+    }
+  }
+
+  .receipt-panel {
+    position: absolute;
+    z-index: 1;
+    width: 50%;
+    padding: 1em;
+    background-color: rgba(0, 0, 0, 0);
+    top: 0;
+    bottom: 0;
+    transform: translateX(100%);
+    transition: transform 10ms ease, background-color 200ms ease-in;
+    overflow-y: scroll;
+
+    > .receipt-paper {
+      transform: translateX(100%);
+      transition: transform 500ms ease;
+      min-height: 90%;
+    }
+
+    &.active {
+      display: block;
+      background-color: rgba(0, 0, 0, 0.5);
+      transform: translateX(0);
+
+      > .receipt-paper {
+        transform: translateX(0);
+      }
+    }
+
   }
 
   .right-panel {
     border-left: 1px solid #ccc;
+    z-index: 2;
 
     > .inner {
       display: flex;
@@ -129,7 +173,6 @@ export default {
   }
 
   .right-panel-content {
-    padding: 1em;
     flex: auto;
     overflow: scroll;
   }

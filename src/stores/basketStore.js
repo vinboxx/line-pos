@@ -11,7 +11,7 @@ class Store {
 
   state = {
     books: [],
-    cashRecieved: 0,
+    cashReceived: 0,
     lineItems: [],
     total: 0,
     discount: 0,
@@ -93,9 +93,9 @@ class Store {
     this.state.step -= 1
   }
 
-  setCashRecieved (value) {
-    if (this.debug) console.log('setCashRecieved triggered', value)
-    this.state.cashRecieved = value
+  setCashReceived (value) {
+    if (this.debug) console.log('setCashReceived triggered', value)
+    this.state.cashReceived = parseFloat(value)
   }
 }
 

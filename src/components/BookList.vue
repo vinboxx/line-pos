@@ -47,8 +47,6 @@ export default {
   .book-list {
     display: flex;
     flex-wrap: wrap;
-    height: 100%;
-    overflow: scroll;
 
     > .book-container {
       width: 50%;

@@ -9,8 +9,8 @@
           <div class="content">
             <input type="number" class="input"
               placeholder="Amount of cash"
-              v-on:change="(e) => store.setCashRecieved(e.target.value)"
-              v-on:keyup="(e) => store.setCashRecieved(e.target.value)" />
+              v-on:change="(e) => store.setCashReceived(e.target.value)"
+              v-on:keyup="(e) => store.setCashReceived(e.target.value)" />
           </div>
       </div>
       <div class="accordion-item" v-bind:class="{ active: payment === 'credit-card' }">
@@ -53,6 +53,9 @@ export default {
 <style scoped lang="scss">
   .payment-container {
     text-align: left;
+    padding: 1em;
+    background-color: #e2d9d0;
+    height: 100%;
   }
 
   .accordion-item {
