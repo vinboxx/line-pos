@@ -1,7 +1,7 @@
 const VUE_APP_SERIES_BOOKS_ID = process.env.VUE_APP_SERIES_BOOKS_ID.split(/\s*,\s*/)
 const VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT = process.env.VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT.split(/\s*,\s*/)
 
-class Store {
+class BasketStore {
   initialState = {
     cashReceived: 0,
     lineItems: [],
@@ -84,4 +84,4 @@ class Store {
   }
 }
 
-export default new Store()
+export default new BasketStore()
