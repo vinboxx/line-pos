@@ -1,5 +1,5 @@
-const VUE_APP_SERIES_BOOKS_ID = process.env.VUE_APP_SERIES_BOOKS_ID.split(',')
-const VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT = process.env.VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT.split(',')
+const VUE_APP_SERIES_BOOKS_ID = process.env.VUE_APP_SERIES_BOOKS_ID.split(/\s*,\s*/)
+const VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT = process.env.VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT.split(/\s*,\s*/)
 
 class Store {
   initialState = {
@@ -14,7 +14,6 @@ class Store {
 
   addItemAction (item) {
     const lineItems = [ ...this.state.lineItems ]
-    console.log('lineItems', lineItems)
     const existingItem = lineItems.find(litem => item.id === litem.id)
     if (existingItem) {
       existingItem.qty += 1
@@ -24,8 +23,6 @@ class Store {
         qty: 1
       })
     }
-
-    console.log('lineItems', lineItems)
 
     this.state.lineItems = lineItems
 
