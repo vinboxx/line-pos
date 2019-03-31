@@ -14,25 +14,29 @@
             v-bind:key="item.id"
             v-bind:item="item">
             <span>{{item.title}}</span>
-            <span class="qty">{{item.qty}}</span>
-            <span class="price">{{item.price * item.qty}}</span>
+            <span class="qty">&times;{{item.qty}}</span>
+            <span class="price">{{(item.price * item.qty).toFixed(2)}}</span>
             <span class="remove" v-on:click="basketStore.removeItemAction(item)">&times;</span>
         </li>
       </ul>
-      <div class="summary-line discount text-bold" v-if="basketStore.state.discount">
+      <div class="summary-line total">
+        <span>Total:</span>
+        <span>{{(basketStore.state.total + basketStore.state.discount).toFixed(2)}}</span>
+      </div>
+      <div class="summary-line discount" v-if="basketStore.state.discount">
         <span>Discount:</span>
         <span>{{basketStore.state.discount.toFixed(2)}}</span>
       </div>
       <div class="summary-line total text-bold">
-        <span>Total:</span>
+        <span>Total Net:</span>
         <span>{{basketStore.state.total.toFixed(2)}}</span>
       </div>
       <div v-if="showPayment">
-        <div class="summary-line paid text-bold" v-if="basketStore.state.cashReceived">
+        <div class="summary-line paid" v-if="basketStore.state.cashReceived">
           <span>Paid in cash:</span>
           <span>{{basketStore.state.cashReceived.toFixed(2)}}</span>
         </div>
-        <div class="summary-line text-bold" v-if="basketStore.state.cashReceived">
+        <div class="summary-line" v-if="basketStore.state.cashReceived">
           <span>Change:</span>
           <span>{{(basketStore.state.cashReceived - basketStore.state.total).toFixed(2)}}</span>
         </div>
@@ -111,7 +115,7 @@ export default {
     }
 
     .price {
-      min-width: 64px;
+      min-width: 81px;
     }
 
     .remove {
