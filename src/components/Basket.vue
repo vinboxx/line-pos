@@ -1,7 +1,9 @@
 <template>
   <div class="basket-container">
     <div class="basket-container-inner">
-      <div v-if="store.state.lineItems.length === 0" style="text-align: center">No selected books</div>
+      <div v-if="store.state.lineItems.length === 0" style="text-align: center">
+        Please select book from list
+      </div>
       <div v-else>
         <v-receipt />
       </div>
@@ -28,16 +30,15 @@ export default {
 
 <style scoped lang="scss">
   .basket-container {
-    text-align: left;
-    display: flex;
-    height: 100%;
+    background-color: #e2d9d0;
   }
 
   .basket-container-inner {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     padding: 1em;
     width: 100%;
-    background-color: #e2d9d0;
-    overflow-y: scroll;
   }
 
 </style>

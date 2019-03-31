@@ -55,7 +55,6 @@ export default {
     text-align: left;
     padding: 1em;
     background-color: #e2d9d0;
-    height: 100%;
   }
 
   .accordion-item {

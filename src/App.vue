@@ -184,6 +184,12 @@ export default {
 
   .right-panel-content {
     flex: auto;
-    overflow: scroll;
+    display: flex;
+    overflow-y: scroll;
+
+    > div {
+      flex: 1;
+      overflow-y: scroll;
+    }
   }
 </style>

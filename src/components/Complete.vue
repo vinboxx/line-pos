@@ -16,7 +16,6 @@ export default {
     text-align: center;
     padding: 1em;
     background-color: #e2d9d0;
-    height: 100%;
     justify-content: center;
     align-items: center;
     display: flex;
