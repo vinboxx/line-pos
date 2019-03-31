@@ -1,10 +1,7 @@
-/* eslint-disable no-console */
 const VUE_APP_SERIES_BOOKS_ID = process.env.VUE_APP_SERIES_BOOKS_ID.split(',')
 const VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT = process.env.VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT.split(',')
 
 class Store {
-  debug = true
-
   initialState = {
     cashReceived: 0,
     lineItems: [],
@@ -16,7 +13,6 @@ class Store {
   state = { ...this.initialState }
 
   addItemAction (item) {
-    if (this.debug) console.log('setMessageAction triggered with', item)
     const lineItems = [ ...this.state.lineItems ]
     console.log('lineItems', lineItems)
     const existingItem = lineItems.find(litem => item.id === litem.id)
@@ -37,7 +33,6 @@ class Store {
   }
 
   removeItemAction (item) {
-    if (this.debug) console.log('removeItemAction triggered with', item)
     this.state.lineItems = this.state.lineItems.filter(litem => litem.id !== item.id)
 
     this.calculateBasket()
@@ -67,12 +62,10 @@ class Store {
   }
 
   clearBasketAction () {
-    if (this.debug) console.log('clearBasketAction triggered')
     this.state = { ...this.initialState }
   }
 
   nextStepAction () {
-    if (this.debug) console.log('nextStepAction triggered')
     let { step } = this.state
     const { lineItems, cashReceived, total } = this.state
 
@@ -86,12 +79,10 @@ class Store {
   }
 
   prevStepAction () {
-    if (this.debug) console.log('prevStepAction triggered')
     this.state.step -= 1
   }
 
   setCashReceived (value) {
-    if (this.debug) console.log('setCashReceived triggered', value)
     this.state.cashReceived = parseFloat(value)
   }
 }
