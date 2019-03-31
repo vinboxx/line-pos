@@ -8,7 +8,7 @@
       <div v-if="loading">Loading...</div>
       <div v-else class="book-list">
       <Book
-          v-for="book in store.state.books"
+          v-for="book in bookStore.state.books"
           v-bind:key="book.id"
           v-bind:book="book">
       </Book>
@@ -19,7 +19,7 @@
 
 <script>
 import Book from './Book.vue'
-import store from '../stores/basketStore'
+import bookStore from '../stores/bookStore'
 
 export default {
   name: 'BookList',
@@ -28,13 +28,13 @@ export default {
   },
   data () {
     return {
-      store: store,
+      bookStore: bookStore,
       loading: true,
       errored: false
     }
   },
   mounted () {
-    store.getBooksAction()
+    bookStore.getBooksAction()
       .catch(() => {
         this.errored = true
       })

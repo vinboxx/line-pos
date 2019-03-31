@@ -1,16 +1,11 @@
 /* eslint-disable no-console */
-import axios from 'axios'
-import { get } from 'lodash'
-
-const { VUE_APP_API_BASE_URL } = process.env
 const VUE_APP_SERIES_BOOKS_ID = process.env.VUE_APP_SERIES_BOOKS_ID.split(',')
 const VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT = process.env.VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT.split(',')
 
 class Store {
   debug = true
 
-  state = {
-    books: [],
+  initialState = {
     cashReceived: 0,
     lineItems: [],
     total: 0,
@@ -18,16 +13,12 @@ class Store {
     step: 1
   }
 
-  getBooksAction () {
-    if (this.debug) console.log('setBooksAction triggered')
-    return axios
-      .get(VUE_APP_API_BASE_URL)
-      .then(response => (this.state.books = get(response, 'data.books')))
-  }
+  state = { ...this.initialState }
 
   addItemAction (item) {
     if (this.debug) console.log('setMessageAction triggered with', item)
-    const { lineItems } = this.state
+    const lineItems = [ ...this.state.lineItems ]
+    console.log('lineItems', lineItems)
     const existingItem = lineItems.find(litem => item.id === litem.id)
     if (existingItem) {
       existingItem.qty += 1
@@ -37,6 +28,10 @@ class Store {
         qty: 1
       })
     }
+
+    console.log('lineItems', lineItems)
+
+    this.state.lineItems = lineItems
 
     this.calculateBasket()
   }
@@ -67,24 +62,26 @@ class Store {
       return prev + (parseInt(cur.price) * cur.qty)
     }, 0)
 
-    console.log('discountItems', discountItems)
-
     this.state.discount = discount
     this.state.total = (total - discount)
   }
 
   clearBasketAction () {
     if (this.debug) console.log('clearBasketAction triggered')
-    this.state.lineItems = []
+    this.state = { ...this.initialState }
   }
 
   nextStepAction () {
     if (this.debug) console.log('nextStepAction triggered')
     let { step } = this.state
-    const { lineItems } = this.state
+    const { lineItems, cashReceived, total } = this.state
 
     if (step === 1 && lineItems.length) {
       this.state.step = 2
+    } else if (step === 2 && cashReceived >= total) {
+      this.state.step = 3
+    } else if (step === 3) {
+      this.clearBasketAction()
     }
   }
 

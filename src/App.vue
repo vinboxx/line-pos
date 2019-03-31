@@ -3,7 +3,7 @@
     <div class="main-panel">
       <div class="panel left-panel">
         <BookList />
-        <div class="receipt-panel" v-bind:class="{ active: store.state.step === 2 }">
+        <div class="receipt-panel" v-bind:class="{ active: store.state.step >= 2 }">
           <Receipt :showHeader="true" :showPayment="true" />
         </div>
       </div>
@@ -17,13 +17,19 @@
           <div class="right-panel-content">
             <Basket v-if="store.state.step === 1" />
             <Payment v-if="store.state.step === 2" />
+            <Complete v-if="store.state.step === 3" />
           </div>
           <div class="bottom-bar">
             <div>
-              <button v-if="store.state.step > 1" v-on:click="store.prevStepAction()">Back</button>
+              <button v-if="store.state.step > 1 && store.state.step < 3"
+                v-on:click="store.prevStepAction()">
+                Back
+              </button>
             </div>
             <div>
-              <button v-if="store.state.lineItems.length" v-on:click="store.nextStepAction()">Next</button>
+              <button v-if="store.state.lineItems.length" v-on:click="store.nextStepAction()">
+                {{ store.state.step === 3 ? 'Done' : 'Next'}}
+              </button>
             </div>
           </div>
         </div>
@@ -38,6 +44,7 @@ import BookList from './components/BookList.vue'
 import Receipt from './components/Receipt.vue'
 import Basket from './components/Basket.vue'
 import Payment from './components/Payment.vue'
+import Complete from './components/Complete.vue'
 
 export default {
   name: 'app',
@@ -45,7 +52,8 @@ export default {
     BookList,
     Basket,
     Payment,
-    Receipt
+    Receipt,
+    Complete
   },
   data () {
     return {
