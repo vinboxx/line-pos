@@ -2,11 +2,12 @@
 import axios from 'axios'
 import { get } from 'lodash'
 
-const { VUE_APP_API_BASE_URL } = process.env
+const { VUE_APP_API_BASE_URL, VUE_APP_STORE_NAME } = process.env
 
 class BookStore {
   state = {
-    books: []
+    books: [],
+    storeName: VUE_APP_STORE_NAME
   }
 
   getBooksAction () {

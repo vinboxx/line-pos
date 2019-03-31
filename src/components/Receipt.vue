@@ -2,37 +2,39 @@
   <div class="receipt-paper">
     <div v-if="showHeader">
       <img class="header-logo" src="../assets/logo.png" alt="">
-      <h2>Little Brown Book Shop</h2>
+      <h2>{{bookStore.state.storeName}}</h2>
     </div>
-    <div v-if="store.state.lineItems.length === 0" style="text-align: center">No selected books</div>
+    <div v-if="basketStore.state.lineItems.length === 0" style="text-align: center">
+      No selected books
+    </div>
     <div v-else>
       <ul class="item-list">
         <li
-            v-for="item in store.state.lineItems"
+            v-for="item in basketStore.state.lineItems"
             v-bind:key="item.id"
             v-bind:item="item">
             <span>{{item.title}}</span>
             <span class="qty">{{item.qty}}</span>
             <span class="price">{{item.price * item.qty}}</span>
-            <span class="remove" v-on:click="store.removeItemAction(item)">&times;</span>
+            <span class="remove" v-on:click="basketStore.removeItemAction(item)">&times;</span>
         </li>
       </ul>
-      <div class="summary-line discount text-bold" v-if="store.state.discount">
+      <div class="summary-line discount text-bold" v-if="basketStore.state.discount">
         <span>Discount:</span>
-        <span>{{store.state.discount.toFixed(2)}}</span>
+        <span>{{basketStore.state.discount.toFixed(2)}}</span>
       </div>
       <div class="summary-line total text-bold">
         <span>Total:</span>
-        <span>{{store.state.total.toFixed(2)}}</span>
+        <span>{{basketStore.state.total.toFixed(2)}}</span>
       </div>
       <div v-if="showPayment">
-        <div class="summary-line paid text-bold" v-if="store.state.cashReceived">
+        <div class="summary-line paid text-bold" v-if="basketStore.state.cashReceived">
           <span>Paid in cash:</span>
-          <span>{{store.state.cashReceived.toFixed(2)}}</span>
+          <span>{{basketStore.state.cashReceived.toFixed(2)}}</span>
         </div>
-        <div class="summary-line text-bold" v-if="store.state.cashReceived">
+        <div class="summary-line text-bold" v-if="basketStore.state.cashReceived">
           <span>Change:</span>
-          <span>{{(store.state.cashReceived - store.state.total).toFixed(2)}}</span>
+          <span>{{(basketStore.state.cashReceived - basketStore.state.total).toFixed(2)}}</span>
         </div>
       </div>
     </div>
@@ -40,13 +42,15 @@
 </template>
 
 <script>
-import store from '../stores/basketStore'
+import basketStore from '../stores/basketStore'
+import bookStore from '../stores/bookStore'
 
 export default {
   name: 'Receipt',
   data () {
     return {
-      store: store,
+      basketStore: basketStore,
+      bookStore: bookStore,
       loading: false,
       errored: false
     }

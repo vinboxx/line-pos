@@ -3,7 +3,7 @@
     <div class="main-panel">
       <div class="panel left-panel">
         <BookList />
-        <div class="receipt-panel" v-bind:class="{ active: store.state.step >= 2 }">
+        <div class="receipt-panel" v-bind:class="{ active: basketStore.state.step >= 2 }">
           <Receipt :showHeader="true" :showPayment="true" />
         </div>
       </div>
@@ -11,24 +11,24 @@
       <div class="panel right-panel">
         <div class="inner">
           <div class="top-bar">
-            <img src="./assets/logo.png" class="shop-logo" alt="Little Brown Book Shop">
-            Little Brown Book Shop
+            <img src="./assets/logo.png" class="shop-logo" :alt="storeName">
+            {{storeName}}
           </div>
           <div class="right-panel-content">
-            <Basket v-if="store.state.step === 1" />
-            <Payment v-if="store.state.step === 2" />
-            <Complete v-if="store.state.step === 3" />
+            <Basket v-if="basketStore.state.step === 1" />
+            <Payment v-if="basketStore.state.step === 2" />
+            <Complete v-if="basketStore.state.step === 3" />
           </div>
           <div class="bottom-bar">
             <div>
-              <button v-if="store.state.step > 1 && store.state.step < 3"
-                v-on:click="store.prevStepAction()">
+              <button v-if="basketStore.state.step > 1 && basketStore.state.step < 3"
+                v-on:click="basketStore.prevStepAction()">
                 Back
               </button>
             </div>
             <div>
-              <button v-if="store.state.lineItems.length" v-on:click="store.nextStepAction()">
-                {{ store.state.step === 3 ? 'Done' : 'Next'}}
+              <button v-if="basketStore.state.lineItems.length" v-on:click="basketStore.nextStepAction()">
+                {{ basketStore.state.step === 3 ? 'Done' : 'Next'}}
               </button>
             </div>
           </div>
@@ -39,7 +39,8 @@
 </template>
 
 <script>
-import store from './stores/basketStore'
+import basketStore from './stores/basketStore'
+import bookStore from './stores/bookStore'
 import BookList from './components/BookList.vue'
 import Receipt from './components/Receipt.vue'
 import Basket from './components/Basket.vue'
@@ -57,7 +58,8 @@ export default {
   },
   data () {
     return {
-      store: store
+      basketStore,
+      storeName: bookStore.state.storeName
     }
   }
 }
