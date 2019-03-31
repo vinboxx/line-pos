@@ -4,7 +4,7 @@
       <img :src="book.cover" alt="">
     </div>
     <h2>{{ book.title }}</h2>
-    <p>{{ book.price }}</p>
+    <p>{{ book.price + currency }}</p>
   </div>
 </template>
 
@@ -19,7 +19,8 @@ export default {
     }
   },
   props: {
-    book: Object
+    book: Object,
+    currency: String
   }
 }
 </script>

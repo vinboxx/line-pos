@@ -2,7 +2,7 @@
   <div class="receipt-paper">
     <div v-if="showHeader">
       <img class="header-logo" src="../assets/logo.png" alt="">
-      <h2>{{bookStore.state.storeName}}</h2>
+      <h2>{{storeName}}</h2>
     </div>
     <div v-if="basketStore.state.lineItems.length === 0" style="text-align: center">
       No selected books
@@ -50,9 +50,9 @@ export default {
   data () {
     return {
       basketStore: basketStore,
-      bookStore: bookStore,
+      errored: false,
       loading: false,
-      errored: false
+      storeName: bookStore.state.storeName
     }
   },
   props: {

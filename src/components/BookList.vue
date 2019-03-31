@@ -10,6 +10,7 @@
       <Book
           v-for="book in bookStore.state.books"
           v-bind:key="book.id"
+          v-bind:currency="bookStore.state.currency"
           v-bind:book="book">
       </Book>
     </div>
