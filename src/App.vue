@@ -7,7 +7,9 @@
           <div v-if="loading" class="loading" />
           <div class="search-box">
             <input type="text"
-            :value="keyword"
+              placeholder="Search"
+              autofocus
+              :value="keyword"
               v-on:change="(e) => search(e.target.value)"
               v-on:keyup="(e) => search(e.target.value)">
           </div>
