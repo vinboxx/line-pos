@@ -44,8 +44,10 @@ class BasketStore {
       .filter(item => this.hasDiscount(item.id))
 
     const discount = this.state.lineItems.reduce((prev, cur) => {
+      const discountIndex = discountItems.length > VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT.length
+        ? VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT.length - 1 : discountItems.length - 1
       const dc = this.hasDiscount(cur.id)
-        ? VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT[discountItems.length] / 100
+        ? VUE_APP_SERIES_BOOKS_DISCOUNT_PERCENT[discountIndex] / 100
         : 0
       return prev + (parseInt(cur.price) * dc)
     }, 0)
