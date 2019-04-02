@@ -35,8 +35,8 @@ export default {
 <style scoped lang="scss">
   .book-list-container {
     overflow-y: scroll;
-    height: 100%;
     width: 100%;
+    flex: 1;
   }
 
   .book-list {

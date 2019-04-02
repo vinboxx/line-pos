@@ -154,7 +154,7 @@ export default {
   }
 
   .book-list-panel {
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
   }
 
