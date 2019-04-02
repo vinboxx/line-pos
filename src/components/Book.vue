@@ -1,6 +1,6 @@
 <template>
-  <div class="book-container" v-if="book" v-on:click="store.addItemAction(book)">
-    <div class="book">
+  <div class="book-container" v-if="book">
+    <div class="book" v-on:click="store.addItemAction(book)">
       <img :src="book.cover" :alt="book.title">
     </div>
     <h2>{{ book.title }}</h2>
