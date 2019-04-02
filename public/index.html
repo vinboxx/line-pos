@@ -6,12 +6,80 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= VUE_APP_STORE_NAME %></title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html, body {
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+      }
+
+      body {
+        margin: 0;
+        background-color: #f2ede6;
+      }
+
+      #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        height: 100%;
+      }
+
+      @keyframes dots {
+        0%, 20% {
+          color: rgba(0,0,0,0);
+          text-shadow:
+            .25em 0 0 rgba(0,0,0,0),
+            .5em 0 0 rgba(0,0,0,0);
+        }
+        40% {
+          color: #402d20;
+          text-shadow:
+            .25em 0 0 rgba(0,0,0,0),
+            .5em 0 0 rgba(0,0,0,0);
+        }
+        60% {
+          text-shadow:
+            .25em 0 0 #402d20,
+            .5em 0 0 rgba(0,0,0,0);
+        }
+        80%, 100% {
+          text-shadow:
+            .25em 0 0 #402d20,
+            .5em 0 0 #402d20;
+        }
+      }
+
+      .loading {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        font-size: 4em;
+        color: #402d20;
+      }
+
+      .loading::after {
+        content: ' .';
+        animation: dots 1s steps(5, end) infinite;
+      }
+    </style>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but line-pos doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <div id="app" class="loading"></div>
     <!-- built files will be auto injected -->
   </body>
 </html>

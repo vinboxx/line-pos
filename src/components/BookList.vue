@@ -1,12 +1,8 @@
 <template>
-  <div>
-    <section v-if="errored">
-      <p>We're sorry, we're not able to retrieve books information at the moment, please try back later</p>
-    </section>
-
-    <section v-else>
-      <div v-if="loading">Loading...</div>
-      <div v-else class="book-list">
+  <div class="book-list-container">
+    <p v-if="errored">We're sorry, we're not able to retrieve books information at the moment, please try back later</p>
+    <div v-if="loading" class="loading" />
+    <div v-else class="book-list">
       <Book
           v-for="book in bookStore.state.books"
           v-bind:key="book.id"
@@ -14,7 +10,6 @@
           v-bind:book="book">
       </Book>
     </div>
-    </section>
   </div>
 </template>
 
@@ -45,6 +40,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .book-list-container {
+    width: 100%;
+  }
+
   .book-list {
     display: flex;
     flex-wrap: wrap;
