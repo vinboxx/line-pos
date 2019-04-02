@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "0.18.0",
+    "fuzzy-search": "3.0.1",
     "vue": "2.6.10"
   },
   "devDependencies": {

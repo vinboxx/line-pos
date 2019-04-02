@@ -2,7 +2,17 @@
   <div id="app">
     <div class="main-panel">
       <div class="panel left-panel">
-        <BookList />
+        <div class="book-list-panel">
+          <p v-if="errored">We're sorry, we're not able to retrieve books information at the moment, please try back later</p>
+          <div v-if="loading" class="loading" />
+          <div class="search-box">
+            <input type="text"
+            :value="keyword"
+              v-on:change="(e) => search(e.target.value)"
+              v-on:keyup="(e) => search(e.target.value)">
+          </div>
+          <BookList :books="books" />
+        </div>
         <div class="receipt-panel" v-bind:class="{ active: basketStore.state.step >= 2 }">
           <Receipt :showHeader="true" :showPayment="true" />
         </div>
@@ -27,7 +37,7 @@
               </button>
             </div>
             <div>
-              <button v-if="basketStore.state.lineItems.length" v-on:click="basketStore.nextStepAction()">
+              <button class="btn-next" v-if="basketStore.state.lineItems.length" v-on:click="nextStepAction">
                 {{ basketStore.state.step === 3 ? 'Done' : 'Next'}}
               </button>
             </div>
@@ -59,8 +69,35 @@ export default {
   data () {
     return {
       basketStore,
+      books: [],
+      errored: false,
+      keyword: '',
+      loading: true,
       storeName: bookStore.state.storeName
     }
+  },
+  methods: {
+    nextStepAction () {
+      this.keyword = ''
+      this.books = bookStore.state.books
+      basketStore.nextStepAction()
+    },
+    search (keyword) {
+      this.keyword = keyword
+      const result = bookStore.searchAction(keyword)
+      this.books = result
+    }
+  },
+  mounted () {
+    bookStore.getBooksAction()
+      .then(() => {
+        this.books = bookStore.state.books
+        this.loading = false
+      })
+      .catch(() => {
+        this.errored = true
+        this.loading = false
+      })
   }
 }
 </script>
@@ -113,6 +150,28 @@ export default {
       flex-wrap: wrap;
       height: 100%;
       overflow-y: scroll;
+    }
+  }
+
+  .book-list-panel {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .search-box {
+    width: 100%;
+    padding: 1em;
+
+    input {
+      padding: 0.5em;
+      width: 100%;
+      border: 1px solid #402d20;
+      font-size: 1.33em;
+      outline: none;
+
+      &:focus {
+        box-shadow: 0 0 3px 1px rgba(121, 70, 8, 0.5)
+      }
     }
   }
 

@@ -1,15 +1,14 @@
 <template>
   <div class="book-list-container">
-    <p v-if="errored">We're sorry, we're not able to retrieve books information at the moment, please try back later</p>
-    <div v-if="loading" class="loading" />
-    <div v-else class="book-list">
+    <div v-if="books && books.length" class="book-list">
       <Book
-          v-for="book in bookStore.state.books"
+          v-for="book in books"
           v-bind:key="book.id"
           v-bind:currency="bookStore.state.currency"
           v-bind:book="book">
       </Book>
     </div>
+    <p v-else>No book found</p>
   </div>
 </template>
 
@@ -24,23 +23,19 @@ export default {
   },
   data () {
     return {
-      bookStore: bookStore,
-      loading: true,
-      errored: false
+      bookStore: bookStore
     }
   },
-  mounted () {
-    bookStore.getBooksAction()
-      .catch(() => {
-        this.errored = true
-      })
-      .finally(() => (this.loading = false))
+  props: {
+    books: Array
   }
 }
 </script>
 
 <style scoped lang="scss">
   .book-list-container {
+    overflow-y: scroll;
+    height: 100%;
     width: 100%;
   }
 
