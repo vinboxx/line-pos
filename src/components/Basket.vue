@@ -2,7 +2,7 @@
   <div class="basket-container">
     <div class="basket-container-inner">
       <div v-if="store.state.lineItems.length === 0" style="text-align: center">
-        Please select book from list
+        {{emptyMsg}}
       </div>
       <div v-else>
         <v-receipt />
@@ -22,7 +22,8 @@ export default {
   },
   data () {
     return {
-      store: store
+      store: store,
+      emptyMsg: 'Please select book from list'
     }
   }
 }

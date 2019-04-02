@@ -1,13 +1,18 @@
 <template>
   <div class="complete-container">
-    <p>Payment Completed</p>
+    <p>{{msg}}</p>
     <img src="../assets/thankyou.png" alt="Thank you">
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Complete'
+  name: 'Complete',
+  data () {
+    return {
+      msg: 'Payment Completed'
+    }
+  }
 }
 </script>
 

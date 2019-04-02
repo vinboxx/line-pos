@@ -14,13 +14,13 @@
           </div>
       </div>
       <div class="accordion-item" v-bind:class="{ active: payment === 'credit-card' }">
-          <h4 class="title" v-on:click="selectPayment('credit-card')">
+          <p class="title" v-on:click="selectPayment('credit-card')">
             <icon-credit-card class="icon" :fill="payment === 'credit-card' ? '#fff' : '#402d20'" />
             Credit Card
-          </h4>
-          <p class="content">
-              Sorry. Currently paying by credit card is not support.
           </p>
+          <div class="content">
+              Sorry. Currently paying by credit card is not support.
+          </div>
       </div>
   </div>
 </template>

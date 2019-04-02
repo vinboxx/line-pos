@@ -1,7 +1,7 @@
 <template>
-  <div class="book-container" v-on:click="store.addItemAction(book)">
+  <div class="book-container" v-if="book" v-on:click="store.addItemAction(book)">
     <div class="book">
-      <img :src="book.cover" alt="">
+      <img :src="book.cover" :alt="book.title">
     </div>
     <h2>{{ book.title }}</h2>
     <p>{{ book.price + currency }}</p>
