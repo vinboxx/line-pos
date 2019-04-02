@@ -10,14 +10,18 @@ npm install
 npm run serve
 ```
 
+### Environment Variables
+You can specify env variables by placing the following files in your project root:
+```
+.env                # loaded in all cases
+.env.local          # loaded in all cases, ignored by git
+.env.test           # only loaded in test mode
+.env.production     # only loaded in production mode
+```
+
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Run your tests
-```
-npm run test
 ```
 
 ### Lints and fixes files
