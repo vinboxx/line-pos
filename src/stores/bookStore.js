@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import axios from 'axios'
 import { get } from 'lodash'
 
@@ -16,7 +15,6 @@ class BookStore {
   }
 
   getBooksAction () {
-    if (this.debug) console.log('setBooksAction triggered')
     return axios
       .get(VUE_APP_API_BASE_URL)
       .then(response => (this.state.books = get(response, 'data.books')))
